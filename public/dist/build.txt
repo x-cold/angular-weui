@@ -1,0 +1,12 @@
+
+js/main.js
+----------------
+lib/angular/angular.min.js
+lib/angular-ui-router/release/angular-ui-router.min.js
+js/app.js
+js/services.js
+js/directives.js
+js/controllers.js
+js/filters.js
+js/weui.js
+js/main.js
