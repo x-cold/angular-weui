@@ -23,10 +23,14 @@ define(['angular', 'services'], function(angular) {
 				// 显示3s后完成
 				$scope.loadingToast = function() {
 					$weuiToast.show({
-						type: 'loading'
+						type: 'loading',
+						delay: 0
 					}).then(function() {
-						console.log('loaded')
+						console.log('loaded');
 					});
+					setTimeout(function() {
+						$weuiToast.hide();
+					}, 1000);
 				};
 			}
 		])
