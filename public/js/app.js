@@ -51,7 +51,8 @@ define(['angular'], function(angular) {
        */
       .state('dialog', {
         url: '/dialog',
-        templateUrl: 'widget/dialog.html'
+        templateUrl: 'widget/dialog.html',
+        controller: 'dialogController'
       })
 
       /**

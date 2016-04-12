@@ -45,7 +45,25 @@ setTimeout(function() {
 + 调用方法
 
 ```javascript
+// alert
+$weuiDialog.alert({
+	title: 'alert',
+	template: 'alert测试页面。。。。。。。。。。。。'
+}).then(function() {
+	console.log('finished');
+});
 
+//confirm
+$weuiDialog.confirm({
+	title: '测试',
+	template: 'confirm测试页面。。。。。。。。。。。。'
+}).then(function(res) {
+	if (res) {
+		console.log('You are sure');
+	} else {
+		console.log('You are not sure');
+	}
+})
 ```
 
 + 开发情况

@@ -34,4 +34,31 @@ define(['angular', 'services'], function(angular) {
 				};
 			}
 		])
+
+	.controller('dialogController', ['$scope', '$weuiDialog',
+		function($scope, $weuiDialog) {
+			// alert
+			$scope.alert = function() {
+				$weuiDialog.alert({
+					title: 'alert',
+					template: 'alert测试页面。。。。。。。。。。。。'
+				}).then(function() {
+					console.log('finished');
+				});
+			};
+			// confirm
+			$scope.confirm = function() {
+				$weuiDialog.confirm({
+					title: '测试',
+					template: 'confirm测试页面。。。。。。。。。。。。'
+				}).then(function(res) {
+					if (res) {
+						console.log('You are sure');
+					} else {
+						console.log('You are not sure');
+					}
+				})
+			};
+		}
+	])
 });
