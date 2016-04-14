@@ -74,7 +74,7 @@
 					'<div class="weui_mask_transparent"></div>' +
 					'<div class="weui_toast">' +
 					'<i class="weui_icon_toast"></i>' +
-					'<p class="weui_toast_content">已完成</p>' +
+					'<p class="weui_toast_content" ng-bind="text"></p>' +
 					'</div>' +
 					'</div>',
 					TOAST_LOADING =
@@ -95,7 +95,7 @@
 					'<div class="weui_loading_leaf weui_loading_leaf_10"></div>' +
 					'<div class="weui_loading_leaf weui_loading_leaf_11"></div>' +
 					'</div>' +
-					'<p class="weui_toast_content">数据加载中</p>' +
+					'<p class="weui_toast_content" ng-bind="text"></p>' +
 					'</div>' +
 					'</div>',
 					templates = {
@@ -132,6 +132,7 @@
 						scope: null,
 						type: 'loading',
 						delay: 3000,
+						text: '...',
 						appendTo: $weuiBody.get()
 					}, options || {});
 
@@ -140,8 +141,8 @@
 						self.scope.$destroy();
 					};
 
+					self.scope = (self.options.scope || $rootScope).$new();
 					self.show = function() {
-						self.scope = (self.options.scope || $rootScope).$new();
 						self.element = jqLite(templates[self.options.type]);
 						self.options.appendTo.appendChild(self.element[0]);
 						$compile(self.element)(self.scope);
@@ -154,6 +155,10 @@
 							}
 						})
 					};
+
+					extend(self.scope, {
+						text: self.options.text
+					});
 
 					return self;
 				}

@@ -12,7 +12,8 @@
 // 弹出成功提示框，1s消失（Promise）
 $weuiToast.show({
 	type: 'finish',
-	delay: 1000
+	delay: 1000,
+	text: '已完成交易'
 }).then(function() {
 	console.log('finished');
 });
@@ -20,7 +21,8 @@ $weuiToast.show({
 // 显示加载中提示框
 $weuiToast.show({
 	type: 'loading',
-	delay: 0	//不自动消失
+	delay: 0,	//不自动消失
+	text: '正在玩命加载..'
 });
 
 // 移除提示框
@@ -67,3 +69,5 @@ $weuiDialog.confirm({
 ```
 
 + 开发情况
+
+完成alert\confirm服务化的编码，还需要继续完善prompt\dialog服务化编码

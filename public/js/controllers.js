@@ -15,7 +15,8 @@ define(['angular', 'services'], function(angular) {
 				$scope.finishToast = function() {
 					$weuiToast.show({
 						type: 'finish',
-						delay: 1000
+						delay: 1000,
+						text: '已完成交易'
 					}).then(function() {
 						console.log('finished');
 					});
@@ -24,7 +25,8 @@ define(['angular', 'services'], function(angular) {
 				$scope.loadingToast = function() {
 					$weuiToast.show({
 						type: 'loading',
-						delay: 0
+						delay: 0,
+						text: '正在玩命加载..'
 					}).then(function() {
 						console.log('loaded');
 					});
