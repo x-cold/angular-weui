@@ -1,35 +1,43 @@
-var gulp = require('gulp');
-var stylus = require('gulp-stylus');
-var concat = require('gulp-concat');
-var minifyCSS = require('gulp-minify-css');
-var uglify = require('gulp-uglify');
-var jslint = require('gulp-jslint');
-var serv = require('gulp-serv');
-var requirejsOptimize = require('gulp-requirejs-optimize');
+'use strict';
+
+const requirejsOptimize = require('gulp-requirejs-optimize'),
+	minifyCSS = require('gulp-minify-css'),
+	stylus = require('gulp-stylus'),
+	concat = require('gulp-concat'),
+	uglify = require('gulp-uglify'),
+	jslint = require('gulp-jslint'),
+	serv = require('gulp-serv'),
+	gulp = require('gulp');
 
 /**
- *	source path
+ *	config
  */
-var src = {
-	stylus: './stylus/src/**/*.styl',
-	stylus_main: './stylus/src/common.styl',
-	css: ['./public/css/src/*.css'],
-	js: ['./public/js/**/*.js'],
-}
+const config = {
 
-var dest = {
-	css: './public/css',
+};
+
+/**
+ *	path
+ */
+const path = {
+	source: {
+		stylus: './src/stylus/**/*.styl',
+		stylus_main: './src/stylus/common.styl',
+		css: ['./src/public/css/*.css'],
+		js: ['./src/public/js/**/*.js'],
+	},
+	dist: './dist'
 }
 
 /**
  *	stylus
  */
 gulp.task('compress', function() {
-	gulp.src([src.stylus_main])
+	gulp.src([path.source.stylus_main])
 		.pipe(stylus({
 			compress: true,
 		}))
-		.pipe(gulp.dest(dest.css + '/src'));
+		.pipe(gulp.dest(dist + '/css'));
 });
 
 /**
@@ -37,17 +45,17 @@ gulp.task('compress', function() {
  */
 
 gulp.task('css', function() {
-	gulp.src(src.css)
+	gulp.src(path.source.css)
 		.pipe(concat('main.css'))
 		.pipe(minifyCSS())
-		.pipe(gulp.dest(dest.css));
+		.pipe(gulp.dest(dist + '/css'));
 });
 
 /**
  *	jslint
  */
 gulp.task('jslint', function() {
-	return gulp.src(src.js)
+	return gulp.src(path.source.js)
 		.pipe(jslint())
 		.on('error', function(error) {
 			console.error(String(error));
@@ -92,7 +100,7 @@ gulp.task('scripts', function() {
 gulp.task("server", function(done) {
 	serv.start({
 		root: __dirname + "/public",
-		port: 80
+		port: 7000
 	}, done);
 });
 
@@ -108,3 +116,7 @@ gulp.watch([src.css], ['css']).on('change', function(event) {
 });
 
 gulp.task('default', ['compress', 'css', 'jslint', 'server']);
+
+gulp.task('build');
+
+gulp.task('test');
