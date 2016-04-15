@@ -23,8 +23,8 @@ const path = {
 	source: {
 		stylus: './src/stylus/**/*.styl',
 		stylus_main: './src/stylus/common.styl',
-		css: ['./src/public/css/*.css'],
-		js: ['./src/public/js/**/*.js'],
+		css: './src/public/css/*.css',
+		js: './src/public/js/**/*.js',
 	},
 	dist: './dist'
 }
@@ -37,7 +37,7 @@ gulp.task('compress', function() {
 		.pipe(stylus({
 			compress: true,
 		}))
-		.pipe(gulp.dest(dist + '/css'));
+		.pipe(gulp.dest('./src/css'));
 });
 
 /**
@@ -45,17 +45,17 @@ gulp.task('compress', function() {
  */
 
 gulp.task('css', function() {
-	gulp.src(path.source.css)
+	gulp.src([path.source.css])
 		.pipe(concat('main.css'))
 		.pipe(minifyCSS())
-		.pipe(gulp.dest(dist + '/css'));
+		.pipe(gulp.dest(path.dist + '/css'));
 });
 
 /**
  *	jslint
  */
 gulp.task('jslint', function() {
-	return gulp.src(path.source.js)
+	return gulp.src([path.source.js])
 		.pipe(jslint())
 		.on('error', function(error) {
 			console.error(String(error));
@@ -67,10 +67,10 @@ gulp.task('jslint', function() {
  *	js uglify and concat
  */
 gulp.task('minifyjs', function() {
-	return gulp.src([src.controllers, src.widget]) //需要操作的文件
+	return gulp.src([path.source.js]) //需要操作的文件
 		.pipe(uglify()) //压缩
-		.pipe(concat('controller.js')) //合并所有js到main.js
-		.pipe(gulp.dest('./public/js/')) //输出到文件夹
+		.pipe(concat('weui.js')) //合并所有js到main.js
+		.pipe(gulp.dest(path.dist + '/js')) //输出到文件夹
 });
 
 
@@ -78,7 +78,7 @@ gulp.task('minifyjs', function() {
  *	copy static files
  */
 gulp.task('copy', function() {
-	var start = src.unhandle;
+	var start = path.source.unhandle;
 	gulp.src(start)
 		.pipe(gulpCopy('./dist/', {
 			start: start
@@ -107,16 +107,16 @@ gulp.task("server", function(done) {
 /**
  *	watcher stylus
  */
-gulp.watch([src.stylus], ['compress']).on('change', function(event) {
+gulp.watch([path.source.stylus], ['compress']).on('change', function(event) {
 	console.log('File ' + event.path + ' was ' + event.type + ', running compressor');
 });
 
-gulp.watch([src.css], ['css']).on('change', function(event) {
+gulp.watch([path.source.css], ['css']).on('change', function(event) {
 	console.log('File ' + event.path + ' was ' + event.type + ', running css handle');
 });
 
 gulp.task('default', ['compress', 'css', 'jslint', 'server']);
 
-gulp.task('build');
+gulp.task('build', ['compress', 'css', 'jslint', 'minifyjs']);
 
 gulp.task('test');

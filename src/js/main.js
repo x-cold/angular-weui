@@ -10,12 +10,13 @@
 	window.weui = window.weui || {};
 	window.weui.version = '0.0.1';
 	window.weuiModule = angular.module('weui');
-	var extend = angular.extend,
-		forEach = angular.forEach,
-		isDefined = angular.isDefined,
-		isNumber = angular.isNumber,
-		isString = angular.isString,
-		jqLite = angular.element,
-		noop = angular.noop;
 
 })(window, document);
+
+var extend = angular.extend,
+	forEach = angular.forEach,
+	isDefined = angular.isDefined,
+	isNumber = angular.isNumber,
+	isString = angular.isString,
+	jqLite = angular.element,
+	noop = angular.noop;
