@@ -33,3 +33,10 @@ _借助$q将服务以promise的形式处理异步_
 
 本项目起始于2016/4/4，主要意于推动WEUI在angular 1的应用场景拓展。代码比较粗糙，欢迎提交issue共同讨论。
 
+### 使用方法
+
+本项目完全使用gulp进行工作流组织。
+
+1. `gulp build` 生成release版本
+
+2. `gulp` 调试（请访问 http://localhost:7000/templates/）
