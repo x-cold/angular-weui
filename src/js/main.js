@@ -4,6 +4,7 @@
  * @author xcold
  * @date 2016/4/4
  */
+ 
 'use strict';
 var extend = angular.extend,
 	forEach = angular.forEach,
@@ -16,5 +17,5 @@ var extend = angular.extend,
 (function(window, document) {
 	window.weui = window.weui || {};
 	window.weui.version = '0.0.1';
-	window.weuiModule = angular.module('weui');
+	window.weuiModule = angular.module('weui', []);
 })(window, document);

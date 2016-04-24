@@ -91,7 +91,17 @@ gulp.watch([path.source.stylus], ['compress']).on('change', function(event) {
 	console.log('File ' + event.path + ' was ' + event.type + ', running compressor');
 });
 
+/**
+ *	watcher stylesheet
+ */
 gulp.watch([path.source.css], ['css']).on('change', function(event) {
+	console.log('File ' + event.path + ' was ' + event.type + ', running css handle');
+});
+
+/**
+ *	watcher javascript
+ */
+gulp.watch([path.source.js], ['minifyjs']).on('change', function(event) {
 	console.log('File ' + event.path + ' was ' + event.type + ', running css handle');
 });
 

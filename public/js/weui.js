@@ -4,6 +4,7 @@
  * @author xcold
  * @date 2016/4/4
  */
+ 
 'use strict';
 var extend = angular.extend,
 	forEach = angular.forEach,
@@ -16,8 +17,27 @@ var extend = angular.extend,
 (function(window, document) {
 	window.weui = window.weui || {};
 	window.weui.version = '0.0.1';
-	window.weuiModule = angular.module('weui', ['ui.router']);
+	window.weuiModule = angular.module('weui', []);
 })(window, document);
+
+/**
+ * @name actionsheet.js
+ * @description $weuiActionSheet
+ * @author xcold
+ * @date 2016/4/24
+ */
+
+(function(weuiModule) {
+	weuiModule
+		.factory('$weuiActionSheet', [
+			'$timeout',
+			'$q',
+			'$weuiBody',
+			'$compile',
+			'$rootScope',
+			function($timeout, $q, $weuiBody, $compile, $rootScope) {}
+		])
+})(window.weuiModule);
 
 /**
  * @name body.js
@@ -248,6 +268,28 @@ var extend = angular.extend,
 			}
 		])
 })(window.weuiModule);
+
+/**
+ * @name progress.js
+ * @description $weuiProgress
+ * @author xcold
+ * @date 2016/4/24
+ */
+
+(function(weuiModule) {
+	weuiModule
+		.factory('$weuiProgress', [
+			'$timeout',
+			'$q',
+			'$weuiBody',
+			'$compile',
+			'$rootScope',
+			function($timeout, $q, $weuiBody, $compile, $rootScope) {
+				var progress;
+			}
+		])
+})(window.weuiModule);
+
 /**
  * @name toast.js
  * @description $weuiToast
