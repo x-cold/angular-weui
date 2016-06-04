@@ -1,4 +1,4 @@
-#angular weui
+#angular 1.x + weui
 
 将weui整合到angular项目，面向服务进行封装
 
@@ -31,5 +31,12 @@ _借助$q将服务以promise的形式处理异步_
 
 ### 备注
 
-本项目起始于2016/4/4，主要意于推动WEUI在angular 1的应用场景拓展。代码比较粗糙，欢迎提交issue共同讨论。
+本项目起始于2016/4/4，主要意于推动weui在angular 1.x的应用场景拓展。代码比较粗糙，欢迎提交issue共同讨论。
 
+### 使用方法
+
+本项目完全使用gulp进行工作流组织，执行以下命令达到你期待的结果吧。
+
+1. `gulp` 调试（请访问 http://localhost:70000/）
+
+2. `gulp build` 生成release版本

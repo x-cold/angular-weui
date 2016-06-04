@@ -1,122 +1,92 @@
 'use strict';
 
 const requirejsOptimize = require('gulp-requirejs-optimize'),
+	prettify = require('gulp-jsbeautifier'),
+	gulpSequence = require('gulp-sequence'),
 	minifyCSS = require('gulp-minify-css'),
+	combCss = require('gulp-csscomb'),
 	stylus = require('gulp-stylus'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	jslint = require('gulp-jslint'),
+	gulpCopy = require('gulp-copy'),
 	serv = require('gulp-serv'),
 	gulp = require('gulp');
 
-/**
- *	config
- */
-const config = {
-
+const PATH = {
+	EXAMPLE: {
+		stylus: './src/example/css/stylus/**/*.styl',
+		stylus_main: './src/example/css/stylus/common.styl',
+		stylesheet: './src/example/css/**/*.css',
+		javascript: './src/example/js/**/*.js',
+	},
+	SOURCE: {
+		stylesheet: './src/css/**/*.css',
+		javascript: './src/js/**/*.js'
+	},
+	DIST: 'example'
 };
 
-/**
- *	path
- */
-const path = {
-	source: {
-		stylus: './src/stylus/**/*.styl',
-		stylus_main: './src/stylus/common.styl',
-		css: './src/public/css/*.css',
-		js: './src/public/js/**/*.js',
-	},
-	dist: './dist'
-}
+gulp.task('resetBuild', function() {
+	PATH['DIST'] = 'release';
+});
 
 /**
- *	stylus
+ *	COMPRESS STYLUS
  */
-gulp.task('compress', function() {
-	gulp.src([path.source.stylus_main])
+gulp.task('STYLUS_COMPRESS', function() {
+	gulp.src(PATH['EXAMPLE'].stylus)
 		.pipe(stylus({
 			compress: true,
 		}))
-		.pipe(gulp.dest('./src/css'));
+		.pipe(concat('commin.css'))
+		.pipe(gulp.dest(PATH['DIST'] + '/css'));
 });
 
 /**
- *	css concat
+ *	CONCAT STYLESHEET
  */
-
-gulp.task('css', function() {
-	gulp.src([path.source.css])
-		.pipe(concat('main.css'))
+gulp.task('CSS_CONCAT', ['STYLUS_COMPRESS'], function() {
+	gulp.src([PATH['EXAMPLE'].stylesheet])
 		.pipe(minifyCSS())
-		.pipe(gulp.dest(path.dist + '/css'));
+		.pipe(concat('main.min.css'))
+		.pipe(gulp.dest(PATH['DIST']  + '/css'));
 });
 
 /**
- *	jslint
+ *	JSLINT
  */
-gulp.task('jslint', function() {
-	return gulp.src([path.source.js])
+gulp.task('JS_LINT', function() {
+	return gulp.src([PATH['SOURCE'].javascript])
 		.pipe(jslint())
 		.on('error', function(error) {
-			console.error(String(error));
+			console.warn(String(error));
 		});
 });
 
-
 /**
- *	js uglify and concat
+ *	MINIFY JAVASCRIPT
  */
-gulp.task('minifyjs', function() {
-	return gulp.src([path.source.js]) //需要操作的文件
+gulp.task('JS_MINIFY', function() {
+	return gulp.src([PATH['SOURCE'].javascript]) //需要操作的文件
+		.pipe(prettify())
+		.pipe(concat('weui.js'))
+    .pipe(gulp.dest(PATH['DIST']))
 		.pipe(uglify()) //压缩
-		.pipe(concat('weui.js')) //合并所有js到main.js
-		.pipe(gulp.dest(path.dist + '/js')) //输出到文件夹
-});
-
-
-/**
- *	copy static files
- */
-gulp.task('copy', function() {
-	var start = path.source.unhandle;
-	gulp.src(start)
-		.pipe(gulpCopy('./dist/', {
-			start: start
-		}))
-});
-
-/*
- *	requirejs optimize
- */
-gulp.task('scripts', function() {
-	gulp.src('./public/js/**/*.js')
-		.pipe(requirejsOptimize())
-		.pipe(gulp.dest('./public/dist'))
+		.pipe(concat('weui.min.js')) //合并所有js到main.js
+		.pipe(gulp.dest(PATH['DIST'])) //输出到文件夹
 });
 
 /**
- *	static server
+ *	START A STACTIC SERVER FOR EXAMPLE
  */
-gulp.task("server", function(done) {
+gulp.task('STATIC_SERVER', function(done) {
 	serv.start({
-		root: __dirname + "/public",
+		root: __dirname + "/example",
 		port: 7000
 	}, done);
 });
 
-/**
- *	watcher stylus
- */
-gulp.watch([path.source.stylus], ['compress']).on('change', function(event) {
-	console.log('File ' + event.path + ' was ' + event.type + ', running compressor');
-});
+gulp.task('default', ['CSS_CONCAT', 'JS_MINIFY', 'STATIC_SERVER']);
 
-gulp.watch([path.source.css], ['css']).on('change', function(event) {
-	console.log('File ' + event.path + ' was ' + event.type + ', running css handle');
-});
-
-gulp.task('default', ['compress', 'css', 'jslint', 'server']);
-
-gulp.task('build', ['compress', 'css', 'jslint', 'minifyjs']);
-
-gulp.task('test');
+gulp.task('build', gulpSequence(['resetBuild', 'JS_LINT', 'JS_MINIFY']));

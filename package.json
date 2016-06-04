@@ -1,15 +1,19 @@
 {
-  "name": "souchewei-keeper",
+  "name": "angular-weui",
   "version": "1.0.0",
-  "description": "souchewei web app",
+  "description": "angular weui app framework",
   "main": "app.js",
   "dependencies": {
-    "bower": "^1.7.1"
+    "bower": "^1.7.1",
+    "gulp-copy": "0.0.2",
+    "gulp-sequence": "^0.4.5"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
+    "gulp-csscomb": "^3.0.7",
     "gulp-file-copy": "0.0.1",
+    "gulp-jsbeautifier": "^2.0.3",
     "gulp-jslint": "^0.2.2",
     "gulp-minify-css": "^1.2.3",
     "gulp-nodemon": "^2.0.6",
@@ -25,10 +29,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.oschina.net/lxstart/souchewei-ng.git"
+    "url": "https://github.com/x-cold/angular-weui"
   },
   "keywords": [
-    "souchewei"
+    "angualr",
+    "weui"
   ],
   "author": "xcold",
   "license": "ISC"
