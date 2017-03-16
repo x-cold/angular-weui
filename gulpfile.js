@@ -15,16 +15,16 @@ const requirejsOptimize = require('gulp-requirejs-optimize'),
 
 const PATH = {
 	EXAMPLE: {
-		stylus: './src/example/css/stylus/**/*.styl',
-		stylus_main: './src/example/css/stylus/common.styl',
-		stylesheet: './src/example/css/**/*.css',
-		javascript: './src/example/js/**/*.js',
+		stylus: './src/docs/css/stylus/**/*.styl',
+		stylus_main: './src/docs/css/stylus/common.styl',
+		stylesheet: './src/docs/css/**/*.css',
+		javascript: './src/docs/js/**/*.js',
 	},
 	SOURCE: {
 		stylesheet: './src/css/**/*.css',
 		javascript: './src/js/**/*.js'
 	},
-	DIST: 'example'
+	DIST: 'docs'
 };
 
 gulp.task('resetBuild', function() {
@@ -82,7 +82,7 @@ gulp.task('JS_MINIFY', function() {
  */
 gulp.task('STATIC_SERVER', function(done) {
 	serv.start({
-		root: __dirname + "/example",
+		root: __dirname + "/docs",
 		port: 7000
 	}, done);
 });

@@ -4,7 +4,6 @@
   "description": "angular weui app framework",
   "main": "app.js",
   "dependencies": {
-    "bower": "^1.7.1",
     "gulp-copy": "0.0.2",
     "gulp-sequence": "^0.4.5"
   },
