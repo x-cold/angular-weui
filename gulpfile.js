@@ -24,7 +24,7 @@ const PATH = {
 		stylesheet: './src/css/**/*.css',
 		javascript: './src/js/**/*.js'
 	},
-	DIST: 'docs'
+	DIST: 'docs/js'
 };
 
 gulp.task('resetBuild', function() {

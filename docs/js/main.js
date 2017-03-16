@@ -10,9 +10,9 @@
         appDir: '.',
         baseUrl: './js',
         paths: {
-            'angular': '../lib/angular/angular',
-            'uiRouter': '../lib/angular-ui-router/angular-ui-router',
-            'weui': '../weui'
+            'angular': '../lib/angular/angular.min',
+            'uiRouter': '../lib/angular-ui-router/angular-ui-router.min',
+            'weui': './weui.min'
         },
         shim: {
             'angular': {
