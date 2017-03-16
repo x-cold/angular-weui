@@ -89,4 +89,4 @@ gulp.task('STATIC_SERVER', function(done) {
 
 gulp.task('default', ['CSS_CONCAT', 'JS_MINIFY', 'STATIC_SERVER']);
 
-gulp.task('build', gulpSequence(['resetBuild', 'JS_LINT', 'JS_MINIFY']));
+gulp.task('build', gulpSequence(['resetBuild', 'JS_MINIFY']));

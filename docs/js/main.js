@@ -5,6 +5,8 @@
  * @date 2016/4/4
  */
 
+'use strict';
+
 (function(window) {
     require.config({
         appDir: '.',
