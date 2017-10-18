@@ -19,7 +19,7 @@ define(['angular'], function(angular) {
 	.factory('setWindowTitle', ['$rootScope', function($rootScope) {
 		return function(title) {
 			if (!check(title)) {
-				$rootScope.title = '嗖嗖车位';
+				$rootScope.title = '----';
 			} else {
 				$rootScope.title = title;
 			}
